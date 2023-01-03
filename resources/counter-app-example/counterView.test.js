@@ -27,4 +27,15 @@ describe("Counter view", () => {
 
     expect(document.querySelector("#counter").textContent).toBe("2");
   });
+
+  it("displays value 0 after increment click and decrement click", () => {
+    const model = new CounterModel();
+    const view = new CounterView(model);
+    view.display();
+
+    document.querySelector("#increment-btn").click();
+    document.querySelector("#decrement-btn").click();
+
+    expect(document.querySelector("#counter").textContent).toBe("0");
+  });
 });

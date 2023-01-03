@@ -1,16 +1,23 @@
-const CounterModel = require("./counterModel")
+const CounterModel = require("./counterModel");
 
-describe('Counter model', () => {
-  it('starts at 0', () => {
+describe("Counter model", () => {
+  it("starts at 0", () => {
     const model = new CounterModel();
 
     expect(model.getCounter()).toBe(0);
   });
 
-  it('increments by 1', () => {
+  it("increments by 1", () => {
     const model = new CounterModel();
     model.increment();
 
     expect(model.getCounter()).toBe(1);
   });
-})
+
+  it("decrements by 1", () => {
+    const model = new CounterModel();
+    model.decrement();
+
+    expect(model.getCounter()).toBe(-1);
+  });
+});
