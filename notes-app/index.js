@@ -9,3 +9,18 @@ const model = new NotesModel();
 const view = new NotesView(model);
 
 // view.displayNotes();
+
+// using fetch to make a call on http://localhost:3000/notes
+// and console.log the result data
+
+const getRepoInfo = (callback) => {
+  fetch("http://localhost:3000/notes")
+    .then((response) => response.json())
+    .then((data) => {
+      callback(data);
+    });
+};
+
+getRepoInfo((repoData) => {
+  console.log(repoData);
+});
