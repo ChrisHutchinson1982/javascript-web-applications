@@ -1,7 +1,6 @@
 class View {
   constructor() {
     this.mainContainerEl = document.querySelector("#main-container");
-    this.allParagraphEl = document.querySelectorAll("p");
     console.log(this.mainContainerEl);
   }
 
@@ -12,7 +11,8 @@ class View {
   }
 
   clearParagraphs() {
-    this.allParagraphEl.forEach((paragraph) => {
+    const allParagraphEl = document.querySelectorAll("p");
+    allParagraphEl.forEach((paragraph) => {
       paragraph.remove();
     });
   }
