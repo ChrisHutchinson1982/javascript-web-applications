@@ -10,21 +10,21 @@ const model = new NotesModel();
 
 const view = new NotesView(model, client);
 
-view.displayNotesFromApi();
+// view.displayNotesFromApi();
 
 // view.displayNotes();
 
 // using fetch to make a call on http://localhost:3000/notes
 // and console.log the result data
 
-const getRepoInfo = (callback) => {
-  fetch("http://localhost:3000/notes")
-    .then((response) => response.json())
-    .then((data) => {
-      callback(data);
-    });
-};
-
-getRepoInfo((repoData) => {
-  console.log(repoData);
-});
+client.loadNotes(
+  (notes) => {
+    // This will be executed if notes are loaded correctly from the server
+    model.setNotes(notes);
+    view.displayNotes();
+  },
+  () => {
+    // This will be executed if there's an error
+    view.displayError();
+  }
+);
