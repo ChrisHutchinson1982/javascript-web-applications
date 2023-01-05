@@ -3,11 +3,15 @@
  */
 
 const fs = require("fs");
+const NotesClient = require("./notesClient");
 const NotesModel = require("./notesModel");
 const NotesView = require("./notesView");
 
+jest.mock("./notesClient");
+
 describe("Notes view", () => {
   beforeEach(() => {
+    NotesClient.mockClear();
     document.body.innerHTML = fs.readFileSync("./index.html");
   });
 
@@ -61,5 +65,19 @@ describe("Notes view", () => {
     buttonEl.click();
 
     expect(document.querySelector("#note-input").value).toBe("");
+  });
+  it("displays notes from server", () => {
+    const client = new NotesClient();
+    const model = new NotesModel();
+    const view = new NotesView(model, client);
+
+    client.loadNotes.mockImplementation((callback) => {
+      callback(["This note is coming from the server"]);
+    });
+
+    view.displayNotesFromApi();
+
+    expect(client.loadNotes).toHaveBeenCalled();
+    expect(model.getNotes()).toEqual(["This note is coming from the server"]);
   });
 });
